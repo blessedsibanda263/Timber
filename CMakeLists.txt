@@ -15,3 +15,10 @@ FetchContent_MakeAvailable(SFML)
 add_executable(Timber main.cpp)
 
 target_link_libraries(Timber PRIVATE SFML::Graphics)
+
+# Copy resource files to the build directory
+add_custom_command(
+    TARGET Timber POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${CMAKE_SOURCE_DIR}/graphics $<TARGET_FILE_DIR:Timber>/graphics
+)
